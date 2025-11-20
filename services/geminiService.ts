@@ -1,6 +1,9 @@
 import { GoogleGenAI, Chat } from "@google/genai";
 import { Language } from "../types";
 
+// Add safe declaration for process to avoid TypeScript errors in browser environments
+declare const process: any;
+
 const BASE_INSTRUCTION = `
 ROL: Eres el agente virtual de Alicante Wheels, una agencia de alquiler de coches con sede en Alicante, España. Tu misión es ayudar a clientes que desean rentar un vehículo de manera profesional, amigable y eficiente.
 
@@ -76,7 +79,22 @@ let currentLanguage: Language = 'en';
 export const getChatSession = (language: Language): Chat => {
   if (!chatSession || currentLanguage !== language) {
     currentLanguage = language;
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    
+    let apiKey = '';
+    try {
+      // Safe access to process.env for browser environments
+      if (typeof process !== 'undefined' && process.env) {
+        apiKey = process.env.API_KEY || '';
+      }
+    } catch (e) {
+      console.warn("Error reading environment variables:", e);
+    }
+
+    if (!apiKey) {
+      console.error("CRITICAL: API Key is missing. Ensure process.env.API_KEY is set in your environment variables.");
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
     
     const languageInstruction = language === 'es' 
       ? "CONTEXTO: El usuario está viendo la versión en ESPAÑOL del sitio web. Prioriza responder en Español." 
@@ -97,10 +115,16 @@ export const sendMessageToGemini = async (message: string, language: Language): 
     const chat = getChatSession(language);
     const result = await chat.sendMessage({ message });
     return result.text || (language === 'es' ? "Lo siento, no he podido procesar tu solicitud en este momento." : "I'm sorry, I couldn't process that request right now.");
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini API Error:", error);
+    
+    // More specific error logging to help debugging
+    if (error.message?.includes("API key not valid") || error.toString().includes("403")) {
+      console.error("Check your API Key configuration.");
+    }
+
     return language === 'es' 
-      ? "Tengo problemas para conectarme con el servidor. Por favor, inténtalo de nuevo en un momento."
-      : "I'm having trouble connecting to our servers. Please try again in a moment.";
+      ? "Tengo problemas para conectarme con el servidor. Por favor, verifica tu conexión o intenta más tarde."
+      : "I'm having trouble connecting to our servers. Please check your connection or try again later.";
   }
 };
