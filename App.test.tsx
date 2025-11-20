@@ -9,7 +9,8 @@ vi.mock('./components/Chatbot', () => ({
 }));
 
 // Mock scroll behavior
-window.scrollTo = vi.fn();
+// Cast to match the scrollTo overloads from lib.dom.d.ts
+window.scrollTo = vi.fn() as unknown as typeof window.scrollTo;
 
 describe('App Integration', () => {
   it('renders the default view (Home) in English', () => {
