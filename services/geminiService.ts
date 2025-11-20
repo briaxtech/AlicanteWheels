@@ -78,10 +78,11 @@ export const getChatSession = (language: Language): Chat => {
   if (!chatSession || currentLanguage !== language) {
     currentLanguage = language;
     
+    // Use process.env.API_KEY which is now polyfilled by vite.config.ts
     const apiKey = process.env.API_KEY;
     
     if (!apiKey) {
-      console.warn("Gemini Service: API Key is missing. Chatbot will not function correctly.");
+      console.warn("Gemini Service: API Key is missing.");
     }
 
     const ai = new GoogleGenAI({ apiKey: apiKey || '' });
@@ -102,6 +103,7 @@ export const getChatSession = (language: Language): Chat => {
 
 export const sendMessageToGemini = async (message: string, language: Language): Promise<string> => {
   try {
+    // Check specifically for the value, not just the object existence
     if (!process.env.API_KEY) {
       throw new Error("API_KEY_MISSING");
     }
@@ -112,11 +114,10 @@ export const sendMessageToGemini = async (message: string, language: Language): 
   } catch (error: any) {
     console.error("Gemini API Error:", error);
     
-    // Handle specific error cases for better UX
     if (error.message === "API_KEY_MISSING") {
         return language === 'es'
-          ? "Error de sistema: Falta la clave API. Por favor, contacte al administrador."
-          : "System Error: API Key is missing. Please contact administrator.";
+          ? "Error de configuración: Falta la clave API. Asegúrese de que la variable de entorno API_KEY esté configurada en su despliegue."
+          : "Configuration Error: API Key is missing. Please ensure the API_KEY environment variable is set in your deployment.";
     }
 
     if (error.message?.includes("API key not valid") || error.toString().includes("403")) {
