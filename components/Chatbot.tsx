@@ -63,7 +63,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
       {/* Chat Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 ${
+        className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 ${
           isOpen ? 'bg-red-500 rotate-90' : 'bg-teal-600'
         } text-white focus:outline-none ring-2 ring-white`}
       >
@@ -86,9 +86,10 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
 
       {/* Chat Window */}
       <div 
-        className={`fixed bottom-24 right-6 z-40 w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transition-all duration-300 transform origin-bottom-right ${
+        className={`fixed bottom-24 right-4 left-4 md:left-auto md:right-6 z-40 w-[calc(100%-2rem)] md:w-full max-w-sm md:max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transition-all duration-300 transform origin-bottom-right ${
           isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0 pointer-events-none'
         }`}
+        style={{ maxHeight: '70vh' }}
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-4 flex items-center space-x-3">
@@ -104,7 +105,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
         </div>
 
         {/* Messages Area */}
-        <div className="h-96 overflow-y-auto p-4 bg-slate-50 space-y-4 scroll-smooth">
+        <div className="h-[55vh] md:h-96 overflow-y-auto no-scrollbar p-4 bg-slate-50 space-y-4 scroll-smooth">
           {messages.map((msg, idx) => (
             <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div 
@@ -131,7 +132,11 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
         </div>
 
         {/* Input Area */}
-        <form onSubmit={handleSend} className="p-4 bg-white border-t border-slate-100">
+        <form 
+          onSubmit={handleSend} 
+          className="p-4 bg-white border-t border-slate-100"
+          style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}
+        >
           <div className="flex items-center space-x-2">
             <input
               type="text"

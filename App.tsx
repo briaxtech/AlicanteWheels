@@ -46,9 +46,9 @@ const App: React.FC = () => {
         )}
 
         {currentView === ViewState.CONTACT && (
-          <div className="py-24 max-w-7xl mx-auto px-4">
-            <h1 className="text-4xl font-bold mb-8 text-slate-900">{t.title}</h1>
-            <div className="grid md:grid-cols-2 gap-12">
+          <div className="py-16 sm:py-20 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 className="text-3xl md:text-4xl font-bold mb-6 sm:mb-8 text-slate-900">{t.title}</h1>
+            <div className="grid gap-8 md:grid-cols-2 md:gap-12">
                <div>
                  <p className="text-lg text-slate-600 mb-6">
                    {t.subtitle}
