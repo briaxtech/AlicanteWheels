@@ -10,7 +10,7 @@ const fleetData: Car[] = [
     pricePerDay: 35,
     passengers: 4,
     transmission: 'Manual',
-    imageUrl: 'https://picsum.photos/seed/fiat500/600/400',
+    imageUrl: 'https://images.unsplash.com/photo-1519507673952-0d4a889527ce?auto=format&fit=crop&w=600&q=80',
     features: ['Bluetooth', 'A/C', 'City Mode']
   },
   {
@@ -20,7 +20,7 @@ const fleetData: Car[] = [
     pricePerDay: 55,
     passengers: 5,
     transmission: 'Automatic',
-    imageUrl: 'https://picsum.photos/seed/vwgolf/600/400',
+    imageUrl: 'https://images.unsplash.com/photo-1603365975371-069a72986637?auto=format&fit=crop&w=600&q=80',
     features: ['Nav', 'Apple CarPlay', 'Cruise Control']
   },
   {
@@ -30,7 +30,7 @@ const fleetData: Car[] = [
     pricePerDay: 85,
     passengers: 5,
     transmission: 'Automatic',
-    imageUrl: 'https://picsum.photos/seed/audiq3/600/400',
+    imageUrl: 'https://images.unsplash.com/photo-1541443131876-44b03de101c5?auto=format&fit=crop&w=600&q=80',
     features: ['Leather Seats', 'Panoramic Roof', '4x4']
   },
   {
@@ -40,7 +40,7 @@ const fleetData: Car[] = [
     pricePerDay: 140,
     passengers: 7,
     transmission: 'Automatic',
-    imageUrl: 'https://picsum.photos/seed/vclass/600/400',
+    imageUrl: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80',
     features: ['Luxury Interior', 'Dual Zone AC', 'Tinted Glass']
   },
   {
@@ -50,7 +50,7 @@ const fleetData: Car[] = [
     pricePerDay: 95,
     passengers: 4,
     transmission: 'Automatic',
-    imageUrl: 'https://picsum.photos/seed/minicooper/600/400',
+    imageUrl: 'https://images.unsplash.com/photo-1594070319944-71548ddce2c0?auto=format&fit=crop&w=600&q=80',
     features: ['Soft Top', 'Sport Mode', 'Premium Sound']
   },
   {
@@ -60,7 +60,7 @@ const fleetData: Car[] = [
     pricePerDay: 110,
     passengers: 4,
     transmission: 'Automatic',
-    imageUrl: 'https://picsum.photos/seed/jeep/600/400',
+    imageUrl: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&q=80',
     features: ['Off-road Ready', 'Removable Top', 'Tow Bar']
   },
 ];

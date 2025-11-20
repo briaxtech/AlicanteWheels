@@ -14,8 +14,8 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src="https://picsum.photos/seed/alicante-coast/1920/1080"
-          alt="Alicante Coast"
+          src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1920&q=80"
+          alt="Car on coastal road"
           className="w-full h-full object-cover opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
