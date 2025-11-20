@@ -1,19 +1,18 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import process from 'node:process';
 
 export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
-  // Fix: Cast process to any to avoid TS error "Property 'cwd' does not exist on type 'Process'"
-  const env = loadEnv(mode, (process as any).cwd(), '');
+  const env = loadEnv(mode, process.cwd(), '');
 
   return {
     plugins: [react()],
     define: {
-      // This is the critical fix: it injects the process.env.API_KEY value 
-      // from the build environment into the browser code.
+      // STRICTLY define only the specific API_KEY to be replaced at build time.
+      // We DO NOT inject the entire 'process.env' object as it causes crashes in browsers/Vercel.
       'process.env.API_KEY': JSON.stringify(env.API_KEY),
-      'process.env': process.env, 
     },
     test: {
       globals: true,
