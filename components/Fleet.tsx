@@ -78,6 +78,7 @@ export const Fleet: React.FC<FleetProps> = ({ language }) => {
   const t = translations[language].fleet;
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const swiperRef = useRef<any>(null);
 
   const renderCard = (car: Car) => (
     <div 
@@ -164,10 +165,19 @@ export const Fleet: React.FC<FleetProps> = ({ language }) => {
             slidesPerView={1.05}
             pagination={{ clickable: true }}
             onBeforeInit={(swiper) => {
-              // @ts-expect-error Swiper types allow manual assignment
+              swiperRef.current = swiper;
+              // @ts-expect-error swiper typing
               swiper.params.navigation.prevEl = prevRef.current;
-              // @ts-expect-error Swiper types allow manual assignment
+              // @ts-expect-error swiper typing
               swiper.params.navigation.nextEl = nextRef.current;
+            }}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+              setTimeout(() => {
+                swiper.navigation.destroy();
+                swiper.navigation.init();
+                swiper.navigation.update();
+              });
             }}
             navigation={{
               prevEl: prevRef.current,
