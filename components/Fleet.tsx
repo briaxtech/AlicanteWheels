@@ -32,8 +32,8 @@ const fleetData: Car[] = [
     pricePerDay: 85,
     passengers: 5,
     transmission: 'Automatic',
-    // Audi Q3 Sportback (Blue)
-    imageUrl: 'https://images.unsplash.com/photo-1603577089737-1dc1d0844a8d?auto=format&fit=crop&w=800&q=80',
+    // Modern White Audi SUV
+    imageUrl: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=800&q=80',
     features: ['Leather Seats', 'Panoramic Roof', '4x4']
   },
   {
