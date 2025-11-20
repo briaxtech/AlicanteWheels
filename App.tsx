@@ -20,7 +20,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col w-full max-w-[100vw] overflow-x-hidden">
       <Navbar 
         currentView={currentView} 
         onNavigate={handleNavigate} 
