@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Car, Language } from '../types';
 import { translations } from '../translations';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, A11y } from 'swiper/modules';
+import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -159,11 +159,13 @@ export const Fleet: React.FC<FleetProps> = ({ language }) => {
 
         <div className="relative">
           <Swiper
-            modules={[Navigation, Pagination, A11y]}
+            modules={[Navigation, Pagination, A11y, Autoplay]}
             spaceBetween={16}
             centeredSlides
             slidesPerView={1.05}
             pagination={{ clickable: true }}
+            autoplay={{ delay: 3500, disableOnInteraction: false }}
+            loop
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper;
               // @ts-expect-error swiper typing
@@ -198,7 +200,7 @@ export const Fleet: React.FC<FleetProps> = ({ language }) => {
             ))}
           </Swiper>
 
-          <div className="pointer-events-none absolute left-0 right-0 top-1/4 flex items-center justify-between px-1 sm:px-2 z-20">
+          <div className="pointer-events-none absolute left-0 right-0 top-1/4 hidden md:flex items-center justify-between px-1 sm:px-2 z-20">
             <button
               ref={prevRef}
               className="pointer-events-auto h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-slate-900/70 text-white flex items-center justify-center shadow-md border border-white/40"
