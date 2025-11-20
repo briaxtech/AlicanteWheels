@@ -1,20 +1,6 @@
 import { GoogleGenAI, Chat } from "@google/genai";
 import { Language } from "../types";
 
-// Helper to safely access environment variables
-const getApiKey = (): string => {
-  try {
-    // @ts-ignore
-    if (typeof process !== 'undefined' && process.env?.API_KEY) {
-      // @ts-ignore
-      return process.env.API_KEY;
-    }
-  } catch (e) {
-    // Ignore error
-  }
-  return '';
-};
-
 const BASE_INSTRUCTION = `
 ROL: Eres el agente virtual de Alicante Wheels, una agencia de alquiler de coches con sede en Alicante, España. Tu misión es ayudar a clientes que desean rentar un vehículo de manera profesional, amigable y eficiente.
 
@@ -91,9 +77,8 @@ export const getChatSession = (language: Language): Chat => {
   if (!chatSession || currentLanguage !== language) {
     currentLanguage = language;
     
-    const apiKey = getApiKey();
-    // Initialize genai with the key (even if empty, handled in sendMessage)
-    const ai = new GoogleGenAI({ apiKey });
+    // @ts-ignore
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     const languageInstruction = language === 'es' 
       ? "CONTEXTO: El usuario está viendo la versión en ESPAÑOL del sitio web. Prioriza responder en Español." 
@@ -110,15 +95,6 @@ export const getChatSession = (language: Language): Chat => {
 };
 
 export const sendMessageToGemini = async (message: string, language: Language): Promise<string> => {
-  // Explicit check for API Key
-  const apiKey = getApiKey();
-  if (!apiKey) {
-    console.error("API Key is missing in process.env.API_KEY");
-    return language === 'es'
-      ? "Error de configuración: No se ha detectado la API Key. Asegúrate de configurar la variable de entorno API_KEY en tu despliegue."
-      : "Configuration Error: API Key is missing. Please ensure the API_KEY environment variable is set in your deployment.";
-  }
-
   try {
     const chat = getChatSession(language);
     const result = await chat.sendMessage({ message });
