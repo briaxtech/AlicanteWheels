@@ -87,8 +87,9 @@ export const getChatSession = (language: Language): Chat => {
 
 export const sendMessageToGemini = async (message: string, language: Language): Promise<string> => {
   try {
-    // Check specifically for the value, not just the object existence
-    if (!process.env.API_KEY) {
+    // Strict check for API Key existence and non-empty value
+    const apiKey = process.env.API_KEY;
+    if (!apiKey || apiKey.trim() === '') {
       throw new Error("API_KEY_MISSING");
     }
 
@@ -98,18 +99,21 @@ export const sendMessageToGemini = async (message: string, language: Language): 
   } catch (error: any) {
     console.error("Gemini API Error:", error);
     
+    // Handle Missing Key Error specifically
     if (error.message === "API_KEY_MISSING") {
         return language === 'es'
-          ? "Error de configuración: Falta la clave API. Avisa al administrador."
-          : "Configuration Error: API Key is missing.";
+          ? "Error de configuración: Falta la clave API. Por favor, asegúrate de que la variable de entorno API_KEY está configurada en tu despliegue."
+          : "Configuration Error: API Key is missing. Please ensure the API_KEY environment variable is set in your deployment.";
     }
 
+    // Handle Invalid Key Error (403 or explicit message)
     if (error.message?.includes("API key not valid") || error.toString().includes("403")) {
        return language === 'es'
-        ? "Error de autorización: Clave no válida."
-        : "Authorization Error: API Key is invalid.";
+        ? "Error de autorización: La clave API no es válida. Por favor verifica tu configuración."
+        : "Authorization Error: API Key is invalid. Please check your configuration.";
     }
 
+    // Handle General Connection/Server Errors
     return language === 'es' 
       ? "Uy, parece que tengo mala conexión ahora mismo. Inténtalo en unos segundos."
       : "Oops, having a bit of connection trouble. Give me a second and try again.";
