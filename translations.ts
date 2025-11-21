@@ -99,7 +99,9 @@ export const translations = {
       headerTitle: "Sol",
       headerSubtitle: "AI Assistant • Always Online",
       poweredBy: "Powered by Gemini 2.5 Flash",
-      typing: "Typing..."
+      typing: "Typing...",
+      launcherGreeting: "Can I help?",
+      launcherButton: "Chat with Sol"
     }
   },
   es: {
@@ -202,7 +204,9 @@ export const translations = {
       headerTitle: "Sol",
       headerSubtitle: "Asistente IA • Siempre en línea",
       poweredBy: "Con la tecnología de Gemini 2.5 Flash",
-      typing: "Escribiendo..."
+      typing: "Escribiendo...",
+      launcherGreeting: "¿Puedo ayudarte?",
+      launcherButton: "Hablar con Sol"
     }
   }
 };

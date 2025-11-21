@@ -12,7 +12,7 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
   return (
     <footer className="bg-slate-900 text-white py-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
               <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center mr-2">

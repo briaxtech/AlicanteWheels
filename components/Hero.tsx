@@ -21,12 +21,12 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-32 sm:pb-20 md:pt-48 md:pb-32">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-48 md:pb-32">
         <div className="lg:w-2/3">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6 leading-tight">
             {t.title} <span className="text-teal-400">{t.titleHighlight}</span> {t.titleSuffix}
           </h1>
-          <p className="text-lg sm:text-xl text-slate-200 mb-10 max-w-2xl leading-relaxed">
+          <p className="text-xl text-slate-200 mb-10 max-w-2xl leading-relaxed">
             {t.subtitle}
           </p>
         </div>
@@ -77,6 +77,13 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
             </button>
           </div>
         </div>
+      </div>
+      
+      {/* Decorative curved bottom */}
+      <div className="absolute bottom-0 w-full">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-[60px] md:h-[100px] text-slate-50 fill-current">
+          <path d="M0 120L1440 120L1440 0C1440 0 1082.5 88 720 88C357.5 88 0 0 0 0L0 120Z" />
+        </svg>
       </div>
     </div>
   );

@@ -58,109 +58,119 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
     setIsLoading(false);
   };
 
+  // Avatar URL (using a consistent seed for "Sol")
+  const avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=Sol&backgroundColor=b6e3f4&clothing=blazerAndShirt";
+
   return (
     <>
-      {/* Chat Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 ${
-          isOpen ? 'bg-red-500 rotate-90' : 'bg-teal-600'
-        } text-white focus:outline-none ring-2 ring-white`}
-      >
-        {isOpen ? (
-          <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <div className="relative">
-             <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-             </svg>
-             <span className="absolute -top-2 -right-2 flex h-4 w-4">
-               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-               <span className="relative inline-flex rounded-full h-4 w-4 bg-orange-500"></span>
-             </span>
-          </div>
-        )}
-      </button>
-
-      {/* Chat Window */}
-      <div 
-        className={`fixed bottom-16 right-3 left-3 md:left-auto md:right-6 z-40 md:w-full max-w-sm md:max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transition-all duration-300 transform origin-bottom-right ${
-          isOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0 pointer-events-none'
-        }`}
-        style={{ height: '80vh', maxHeight: 'calc(100vh - 5rem)' }}
-      >
-        <div className="flex flex-col h-full md:h-auto md:max-h-[70vh]">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-4 flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
-               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-               </svg>
-            </div>
-            <div>
-              <h3 className="text-white font-bold">{t.headerTitle}</h3>
-              <p className="text-teal-100 text-xs">{t.headerSubtitle}</p>
-            </div>
-          </div>
-
-          {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto no-scrollbar p-4 bg-slate-50 space-y-4 scroll-smooth min-h-[220px]">
-            {messages.map((msg, idx) => (
-              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div 
-                  className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
-                    msg.role === 'user' 
-                      ? 'bg-teal-600 text-white rounded-tr-none' 
-                      : 'bg-white text-slate-800 rounded-tl-none border border-slate-100'
-                  }`}
-                >
-                  {msg.text}
-                </div>
-              </div>
-            ))}
-            {isLoading && (
-               <div className="flex justify-start">
-                 <div className="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm flex space-x-2">
-                   <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
-                   <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-75"></div>
-                   <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-150"></div>
-                 </div>
-               </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Input Area */}
-          <form 
-            onSubmit={handleSend} 
-            className="p-4 bg-white border-t border-slate-100"
-            style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}
+      {/* Launcher Card (Visible when Closed) */}
+      {!isOpen && (
+        <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up">
+          <div 
+            onClick={() => setIsOpen(true)}
+            className="bg-white p-5 rounded-[32px] shadow-2xl border border-slate-100 flex items-center space-x-4 cursor-pointer hover:scale-105 transition-transform duration-300 group"
           >
-            <div className="flex items-center space-x-2">
-              <input
-                type="text"
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                placeholder={t.placeholder}
-                className="flex-1 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none text-sm"
-              />
-              <button 
-                type="submit"
-                disabled={!inputText.trim() || isLoading}
-                className="p-3 bg-teal-600 text-white rounded-xl hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-              </button>
-            </div>
-            <div className="text-center mt-2">
-               <span className="text-[10px] text-slate-400">{t.poweredBy}</span>
-            </div>
-          </form>
+             {/* Avatar with Status Dot */}
+             <div className="relative">
+               <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-100 ring-2 ring-white shadow-sm">
+                 <img src={avatarUrl} alt="Sol" className="w-full h-full object-cover" />
+               </div>
+               <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white"></div>
+             </div>
+
+             {/* Greeting & CTA */}
+             <div className="flex flex-col items-start space-y-2">
+               <span className="font-medium text-slate-800 text-sm ml-1">{t.launcherGreeting}</span>
+               <button className="bg-black text-white px-6 py-2 rounded-full text-sm font-bold flex items-center transition-colors group-hover:bg-slate-800 shadow-lg">
+                  <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                  </svg>
+                  {t.launcherButton}
+               </button>
+             </div>
+          </div>
         </div>
+      )}
+
+      {/* Chat Window (Visible when Open) */}
+      <div 
+        className={`fixed bottom-6 right-6 z-50 w-full max-w-sm bg-white rounded-[2rem] shadow-2xl border border-slate-200 overflow-hidden transition-all duration-300 origin-bottom-right ${
+          isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'
+        }`}
+      >
+        {/* Header */}
+        <div className="bg-white p-4 border-b border-slate-100 flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+             <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-100 border border-slate-100">
+                <img src={avatarUrl} alt="Sol" className="w-full h-full object-cover" />
+             </div>
+             <div>
+               <h3 className="font-bold text-slate-900">{t.headerTitle}</h3>
+               <div className="flex items-center">
+                 <span className="w-2 h-2 bg-green-500 rounded-full mr-1.5"></span>
+                 <p className="text-slate-500 text-xs">{t.headerSubtitle}</p>
+               </div>
+             </div>
+          </div>
+          {/* Close Button */}
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Messages Area */}
+        <div className="h-[450px] overflow-y-auto p-4 bg-slate-50 space-y-4 scroll-smooth">
+          {messages.map((msg, idx) => (
+            <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div 
+                className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
+                  msg.role === 'user' 
+                    ? 'bg-black text-white rounded-br-none' 
+                    : 'bg-white text-slate-800 rounded-bl-none border border-slate-100'
+                }`}
+              >
+                {msg.text}
+              </div>
+            </div>
+          ))}
+          {isLoading && (
+             <div className="flex justify-start">
+               <div className="bg-white p-4 rounded-2xl rounded-bl-none border border-slate-100 shadow-sm flex space-x-2">
+                 <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+                 <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-75"></div>
+                 <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-150"></div>
+               </div>
+             </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input Area */}
+        <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-100">
+          <div className="flex items-center bg-slate-100 rounded-full px-2 py-1.5 border border-slate-200 focus-within:ring-2 focus-within:ring-slate-200 transition-all">
+            <input
+              type="text"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              placeholder={t.placeholder}
+              className="flex-1 bg-transparent p-2.5 pl-3 outline-none text-sm text-slate-800 placeholder:text-slate-400"
+            />
+            <button 
+              type="submit"
+              disabled={!inputText.trim() || isLoading}
+              className="p-2 bg-black text-white rounded-full hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed m-1"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );
