@@ -22,7 +22,7 @@ export const translations = {
       }
     },
     features: {
-      title: "Why Choose Alicante Wheels?",
+      title: "Why Choose BrIAx Wheels?",
       subtitle: "We believe renting a car should be as relaxing as your holiday. No fine print, just great service.",
       items: [
         { title: "Zero Excess Insurance", desc: "Drive with total peace of mind. Our premium insurance is included in the price with no hidden costs." },
@@ -83,7 +83,7 @@ export const translations = {
       about: "The premier car rental choice for the Costa Blanca. Explore Alicante, Benidorm, and Valencia with our modern fleet and transparent pricing.",
       locationsTitle: "Locations",
       contactTitle: "Contact",
-      rights: "Alicante Wheels S.L. All rights reserved.",
+      rights: "BrIAx Wheels S.L. All rights reserved.",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
       locs: {
@@ -94,7 +94,7 @@ export const translations = {
       }
     },
     chatbot: {
-      welcome: "Hola! I'm Sol, your Alicante Wheels assistant. Looking for a specific car or need tips for driving in Spain?",
+      welcome: "Hola! I'm Sol, your BrIAx Wheels assistant. Looking for a specific car or need tips for driving in Spain?",
       placeholder: "Ask about cars or Alicante...",
       headerTitle: "Sol",
       headerSubtitle: "AI Assistant • Always Online",
@@ -127,7 +127,7 @@ export const translations = {
       }
     },
     features: {
-      title: "¿Por qué elegir Alicante Wheels?",
+      title: "¿Por qué elegir BrIAx Wheels?",
       subtitle: "Creemos que alquilar un coche debe ser tan relajante como tus vacaciones. Sin letra pequeña, solo un gran servicio.",
       items: [
         { title: "Seguro Todo Riesgo", desc: "Conduce con total tranquilidad. Nuestro seguro premium está incluido en el precio sin costes ocultos." },
@@ -188,7 +188,7 @@ export const translations = {
       about: "La mejor opción de alquiler de coches en la Costa Blanca. Explora Alicante, Benidorm y Valencia con nuestra flota moderna y precios transparentes.",
       locationsTitle: "Ubicaciones",
       contactTitle: "Contacto",
-      rights: "Alicante Wheels S.L. Todos los derechos reservados.",
+      rights: "BrIAx Wheels S.L. Todos los derechos reservados.",
       privacy: "Política de Privacidad",
       terms: "Términos de Servicio",
       locs: {
@@ -199,7 +199,7 @@ export const translations = {
       }
     },
     chatbot: {
-      welcome: "¡Hola! Soy Sol, tu asistente de Alicante Wheels. ¿Buscas un coche específico o consejos para conducir en España?",
+      welcome: "¡Hola! Soy Sol, tu asistente de BrIAx Wheels. ¿Buscas un coche específico o consejos para conducir en España?",
       placeholder: "Pregunta sobre coches o Alicante...",
       headerTitle: "Sol",
       headerSubtitle: "Asistente IA • Siempre en línea",

@@ -42,7 +42,7 @@ describe('App Integration', () => {
     render(<App />);
     
     // Ensure we are on Home
-    expect(screen.getByText(/Why Choose Alicante Wheels/i)).toBeInTheDocument();
+    expect(screen.getByText(/Why Choose BrIAx Wheels/i)).toBeInTheDocument();
     
     // Click Contact
     const contactLink = screen.getByText('Contact & Location');
@@ -53,6 +53,6 @@ describe('App Integration', () => {
     expect(screen.getByText('Main Office')).toBeInTheDocument();
     
     // Home content should be gone
-    expect(screen.queryByText(/Why Choose Alicante Wheels/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Why Choose BrIAx Wheels/i)).not.toBeInTheDocument();
   });
 });

@@ -21,7 +21,7 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
                 </svg>
               </div>
               <span className="font-bold text-2xl tracking-tight">
-                Alicante<span className="text-teal-500">Wheels</span>
+                BrIAx<span className="text-teal-500">Wheels</span>
               </span>
             </div>
             <p className="text-slate-400 max-w-sm text-sm leading-relaxed">

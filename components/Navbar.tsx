@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, languag
               </svg>
             </div>
             <span className="font-bold text-2xl tracking-tight text-slate-800">
-              Alicante<span className="text-teal-600">Wheels</span>
+              BrIAx<span className="text-teal-600">Wheels</span>
             </span>
           </div>
 
