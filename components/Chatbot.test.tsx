@@ -13,30 +13,40 @@ vi.mock('../services/geminiService', () => ({
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
 
 describe('Chatbot Component', () => {
-  it('renders correctly but starts closed', () => {
+  it('renders correctly and is accessible', () => {
     render(<Chatbot language="en" />);
     
-    // The new design uses a launcher card with specific text
-    // We search for the button text "Chat with Sol"
-    const launcherButtonText = screen.getByText(/Chat with Sol/i);
-    expect(launcherButtonText).toBeInTheDocument();
+    // Test visibility of the launcher using accessible role
+    // The launcher div has role="button" and aria-label="Chat with Sol"
+    const launcher = screen.getByRole('button', { name: /Chat with Sol/i });
+    expect(launcher).toBeInTheDocument();
     
     // The chat window content should not be visible yet
     const welcomeMsg = screen.queryByText(/I'm Sol/i);
     expect(welcomeMsg).not.toBeVisible();
   });
 
-  it('opens when the launcher is clicked', async () => {
+  it('opens and closes correctly', async () => {
     render(<Chatbot language="en" />);
     
-    // Find the launcher text/button and click it
-    const launcherText = screen.getByText(/Chat with Sol/i);
-    fireEvent.click(launcherText);
+    // Open chat
+    const launcher = screen.getByRole('button', { name: /Chat with Sol/i });
+    fireEvent.click(launcher);
     
-    // Welcome message should appear in the chat window
+    // Verify it opened
     await waitFor(() => {
       expect(screen.getByText(/I'm Sol/i)).toBeVisible();
     });
+
+    // Close chat using the close button with aria-label
+    const closeButton = screen.getByRole('button', { name: /Close chat/i });
+    fireEvent.click(closeButton);
+
+    // Verify it closed (or rather, content is no longer visible/interactable)
+    // Note: The component uses opacity/scale for visibility, so the text is still in DOM but visually hidden.
+    // We check if the container has the closed classes.
+    const chatWindow = screen.getByText(/I'm Sol/i).closest('.fixed');
+    expect(chatWindow).toHaveClass('opacity-0');
   });
 
   it('sends a message and displays the response', async () => {
@@ -46,17 +56,16 @@ describe('Chatbot Component', () => {
 
     render(<Chatbot language="en" />);
     
-    // Open chat by clicking the launcher text
-    fireEvent.click(screen.getByText(/Chat with Sol/i));
+    // Open chat
+    fireEvent.click(screen.getByRole('button', { name: /Chat with Sol/i }));
     
     // Find input and type
     const input = screen.getByPlaceholderText(/Ask about cars/i);
     fireEvent.change(input, { target: { value: 'Do you have SUVs?' } });
     
-    // Click send (the submit button inside form is the only button in the open chat view with an svg usually, or we target form submit)
-    const inputElement = screen.getByDisplayValue('Do you have SUVs?');
-    const form = inputElement.closest('form');
-    if (form) fireEvent.submit(form);
+    // Click send using accessible name
+    const sendBtn = screen.getByRole('button', { name: /Send message/i });
+    fireEvent.click(sendBtn);
     
     // Check if user message is displayed
     expect(screen.getByText('Do you have SUVs?')).toBeInTheDocument();

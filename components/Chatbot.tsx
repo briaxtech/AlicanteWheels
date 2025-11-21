@@ -65,12 +65,14 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
         <div className="fixed bottom-6 right-6 z-50">
           <div 
             onClick={() => setIsOpen(true)}
+            role="button"
+            aria-label={t.launcherButton}
             className="bg-white p-5 rounded-[32px] shadow-2xl border border-slate-100 flex items-center cursor-pointer hover:scale-105 transition-transform duration-300 group"
           >
              {/* Greeting & CTA - Avatar removed */}
              <div className="flex flex-col items-start space-y-2">
                <span className="font-medium text-slate-800 text-sm ml-1">{t.launcherGreeting}</span>
-               <button className="bg-black text-white px-6 py-2 rounded-full text-sm font-bold flex items-center transition-colors group-hover:bg-slate-800 shadow-lg">
+               <button className="bg-black text-white px-6 py-2 rounded-full text-sm font-bold flex items-center transition-colors group-hover:bg-slate-800 shadow-lg pointer-events-none">
                   <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                   </svg>
@@ -102,6 +104,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
           {/* Close Button */}
           <button 
             onClick={() => setIsOpen(false)}
+            aria-label="Close chat"
             className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -149,6 +152,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
             />
             <button 
               type="submit"
+              aria-label="Send message"
               disabled={!inputText.trim() || isLoading}
               className="p-2 bg-black text-white rounded-full hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed m-1"
             >

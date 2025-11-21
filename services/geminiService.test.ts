@@ -22,10 +22,11 @@ vi.mock('@google/genai', () => {
 
 describe('Gemini Service', () => {
   const originalEnv = process.env;
+  const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env = { ...originalEnv, API_KEY: 'test-key' }; // Ensure key exists for tests
+    process.env = { ...originalEnv, API_KEY: 'test-key' };
   });
 
   afterEach(() => {
@@ -35,6 +36,9 @@ describe('Gemini Service', () => {
   it('should initialize GoogleGenAI with the provided key', () => {
     process.env.API_KEY = 'test-api-key';
     
+    // We trigger a new session by changing language to ensure logic runs
+    // Note: geminiService implements a singleton pattern which makes testing initialization tricky
+    // without exposing a reset method. We rely on the language switch to trigger new creation.
     getChatSession('en');
     
     expect(GoogleGenAI).toHaveBeenCalledWith({ apiKey: 'test-api-key' });
@@ -43,5 +47,14 @@ describe('Gemini Service', () => {
   it('should create a chat session successfully', () => {
      const chat = getChatSession('en');
      expect(chat).toBeDefined();
+  });
+
+  it('should warn if API key is missing but still attempt to create session (defensive coding)', () => {
+    delete process.env.API_KEY;
+    
+    // Trigger logic
+    getChatSession('es'); // Use different lang to force re-eval
+    
+    expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('API Key is missing'));
   });
 });
