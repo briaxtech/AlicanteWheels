@@ -63,6 +63,7 @@ export const getChatSession = (language: Language): Chat => {
     currentLanguage = language;
     
     // Use process.env.API_KEY which is now polyfilled by vite.config.ts
+    // This will be an empty string if not set in production/build
     const apiKey = process.env.API_KEY;
     
     if (!apiKey) {
@@ -102,8 +103,8 @@ export const sendMessageToGemini = async (message: string, language: Language): 
     // Handle Missing Key Error specifically
     if (error.message === "API_KEY_MISSING") {
         return language === 'es'
-          ? "Error de configuración: Falta la clave API. Por favor, asegúrate de que la variable de entorno API_KEY está configurada en tu despliegue."
-          : "Configuration Error: API Key is missing. Please ensure the API_KEY environment variable is set in your deployment.";
+          ? "Error de configuración: Falta la clave API. Por favor, configura la variable de entorno API_KEY en tu plataforma de despliegue."
+          : "Configuration Error: API Key is missing. Please set the API_KEY environment variable in your deployment settings.";
     }
 
     // Handle Invalid Key Error (403 or explicit message)
