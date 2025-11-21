@@ -58,27 +58,16 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
     setIsLoading(false);
   };
 
-  // Avatar URL (using a consistent seed for "Sol")
-  const avatarUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed=Sol&backgroundColor=b6e3f4&clothing=blazerAndShirt";
-
   return (
     <>
       {/* Launcher Card (Visible when Closed) */}
       {!isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up">
+        <div className="fixed bottom-6 right-6 z-50">
           <div 
             onClick={() => setIsOpen(true)}
-            className="bg-white p-5 rounded-[32px] shadow-2xl border border-slate-100 flex items-center space-x-4 cursor-pointer hover:scale-105 transition-transform duration-300 group"
+            className="bg-white p-5 rounded-[32px] shadow-2xl border border-slate-100 flex items-center cursor-pointer hover:scale-105 transition-transform duration-300 group"
           >
-             {/* Avatar with Status Dot */}
-             <div className="relative">
-               <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-100 ring-2 ring-white shadow-sm">
-                 <img src={avatarUrl} alt="Sol" className="w-full h-full object-cover" />
-               </div>
-               <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white"></div>
-             </div>
-
-             {/* Greeting & CTA */}
+             {/* Greeting & CTA - Avatar removed */}
              <div className="flex flex-col items-start space-y-2">
                <span className="font-medium text-slate-800 text-sm ml-1">{t.launcherGreeting}</span>
                <button className="bg-black text-white px-6 py-2 rounded-full text-sm font-bold flex items-center transition-colors group-hover:bg-slate-800 shadow-lg">
@@ -101,9 +90,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
         {/* Header */}
         <div className="bg-white p-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-             <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-100 border border-slate-100">
-                <img src={avatarUrl} alt="Sol" className="w-full h-full object-cover" />
-             </div>
+             {/* Avatar removed */}
              <div>
                <h3 className="font-bold text-slate-900">{t.headerTitle}</h3>
                <div className="flex items-center">
