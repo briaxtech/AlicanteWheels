@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Language } from '../types';
 import { translations } from '../translations';
 
@@ -8,15 +8,28 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ language }) => {
   const t = translations[language].hero;
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="relative bg-slate-900 overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
+      {/* Background Image with Parallax & Zoom Effect */}
+      <div className="absolute inset-0 overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1920&q=80"
           alt="Car on coastal road"
-          className="w-full h-full object-cover opacity-60"
+          style={{
+            transform: `translateY(${scrollY * 0.4}px) scale(${1 + scrollY * 0.0005})`,
+          }}
+          className="w-full h-full object-cover opacity-60 will-change-transform transition-transform duration-75 ease-out"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
       </div>
@@ -32,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
         </div>
 
         {/* Booking Widget */}
-        <div className="bg-white rounded-2xl shadow-2xl p-5 md:p-8 lg:flex lg:items-end lg:space-x-4 max-w-4xl transform translate-y-0 lg:translate-y-12 border border-slate-100">
+        <div className="bg-white rounded-2xl shadow-2xl p-5 md:p-8 lg:flex lg:items-end lg:space-x-4 max-w-4xl transform translate-y-0 lg:translate-y-12 border border-slate-100 relative z-10">
           <div className="flex-1 mb-4 lg:mb-0 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-4">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-slate-700">{t.pickupLoc}</label>
@@ -80,7 +93,7 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
       </div>
       
       {/* Decorative curved bottom */}
-      <div className="absolute bottom-0 w-full">
+      <div className="absolute bottom-0 w-full z-20">
         <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-[40px] md:h-[100px] text-slate-50 fill-current">
           <path d="M0 120L1440 120L1440 0C1440 0 1082.5 88 720 88C357.5 88 0 0 0 0L0 120Z" />
         </svg>
