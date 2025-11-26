@@ -20,9 +20,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ language }) => {
     };
   }, []);
 
-  return (
-    // The ElevenLabs widget renders itself via this custom element.
-    // The agent-id corresponds to the link provided: agent_2701kb02tqnbeyjrxp3rz99z330g
-    <elevenlabs-convai agent-id="agent_2701kb02tqnbeyjrxp3rz99z330g"></elevenlabs-convai>
-  );
+  return React.createElement('elevenlabs-convai', {
+    'agent-id': "agent_2701kb02tqnbeyjrxp3rz99z330g"
+  });
 };

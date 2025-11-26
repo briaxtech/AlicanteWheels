@@ -1,6 +1,6 @@
 {
   "name": "BrIAx Wheels",
-  "description": "A modern car rental agency landing page for Alicante, Spain, featuring a Gemini-powered AI chatbot assistant.",
+  "description": "A modern car rental agency landing page for Alicante, Spain, featuring Cristian, an ElevenLabs-powered AI chatbot assistant.",
   "requestFramePermissions": [
     "microphone"
   ]

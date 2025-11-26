@@ -94,14 +94,14 @@ export const translations = {
       }
     },
     chatbot: {
-      welcome: "Hola! I'm Sol, your BrIAx Wheels assistant. Looking for a specific car or need tips for driving in Spain?",
+      welcome: "Hola! I'm Cristian, your BrIAx Wheels assistant. Looking for a specific car or need tips for driving in Spain?",
       placeholder: "Ask about cars or Alicante...",
-      headerTitle: "Sol",
+      headerTitle: "Cristian",
       headerSubtitle: "AI Assistant • Always Online",
-      poweredBy: "Powered by Gemini 2.5 Flash",
+      poweredBy: "Powered by ElevenLabs",
       typing: "Typing...",
       launcherGreeting: "Can I help?",
-      launcherButton: "Chat with Sol"
+      launcherButton: "Chat with Cristian"
     }
   },
   es: {
@@ -185,7 +185,7 @@ export const translations = {
       mapPlaceholder: "Marcador de Mapa"
     },
     footer: {
-      about: "La mejor opción de alquiler de coches en la Costa Blanca. Explora Alicante, Benidorm y Valencia con nuestra flota moderna y precios transparentes.",
+      about: "La mejor opción de alquiler de coches en la Costa Blanca. Explora Alicante, Benidorm, and Valencia con nuestra flota moderna y precios transparentes.",
       locationsTitle: "Ubicaciones",
       contactTitle: "Contacto",
       rights: "BrIAx Wheels S.L. Todos los derechos reservados.",
@@ -199,14 +199,14 @@ export const translations = {
       }
     },
     chatbot: {
-      welcome: "¡Hola! Soy Sol, tu asistente de BrIAx Wheels. ¿Buscas un coche específico o consejos para conducir en España?",
+      welcome: "¡Hola! Soy Cristian, tu asistente de BrIAx Wheels. ¿Buscas un coche específico o consejos para conducir en España?",
       placeholder: "Pregunta sobre coches o Alicante...",
-      headerTitle: "Sol",
+      headerTitle: "Cristian",
       headerSubtitle: "Asistente IA • Siempre en línea",
-      poweredBy: "Con la tecnología de Gemini 2.5 Flash",
+      poweredBy: "Con la tecnología de ElevenLabs",
       typing: "Escribiendo...",
       launcherGreeting: "¿Puedo ayudarte?",
-      launcherButton: "Hablar con Sol"
+      launcherButton: "Hablar con Cristian"
     }
   }
 };
